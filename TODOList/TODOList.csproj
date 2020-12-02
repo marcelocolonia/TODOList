@@ -23,6 +23,12 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TODOList.Core\TODOList.Core.csproj" />
+    <ProjectReference Include="..\TODOList.Repository\TODOList.Repository.csproj" />
+    <ProjectReference Include="..\TODOList.Service\TODOList.Service.csproj" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

@@ -2,7 +2,7 @@
 
 namespace TODOList.Repository.Interfaces
 {
-    public interface IGenericRepository<T>
+    public interface IGenericRepository<T> where T : class
     {
         public IQueryable<T> List();
 

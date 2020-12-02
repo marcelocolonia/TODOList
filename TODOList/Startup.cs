@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TODOList.Repository;
+using TODOList.Repository.Interfaces;
+using TODOList.Service;
+using TODOList.Service.Interfaces;
 
 namespace TODOList
 {
@@ -20,6 +24,10 @@ namespace TODOList
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddTransient<IUserTaskRepository, UserTaskRepository>();
+            services.AddTransient<IUserTaskService, UserTaskService>();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

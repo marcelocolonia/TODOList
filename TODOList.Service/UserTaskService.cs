@@ -9,9 +9,9 @@ namespace TODOList.Service
 {
     public class UserTaskService : IUserTaskService
     {
-        private IGenericRepository<UserTask> _userTaskRepository;
+        private IUserTaskRepository _userTaskRepository;
 
-        public UserTaskService(IGenericRepository<UserTask> userTaskRepository)
+        public UserTaskService(IUserTaskRepository userTaskRepository)
         {
             _userTaskRepository = userTaskRepository;
         }

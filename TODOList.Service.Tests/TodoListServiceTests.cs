@@ -19,14 +19,14 @@ namespace TODOList.Service.Tests
         {
             var userOne = new User()
             {
-                Id = Guid.NewGuid(),
+                Id = 100,
                 FirstName = "User One",
                 UserName = "ONE"
             };
 
             var userTwo = new User()
             {
-                Id = Guid.NewGuid(),
+                Id = 200,
                 FirstName = "User Two",
                 UserName = "TWO"
             };
@@ -46,9 +46,9 @@ namespace TODOList.Service.Tests
         }
 
         [Test]
-        public async Task Should_filter_tasks_by_user()
+        public async Task Should_filter_tasks_from_user_one()
         {
-            var mockRepository = new Mock<IGenericRepository<UserTask>>();
+            var mockRepository = new Mock<IUserTaskRepository>();
 
             mockRepository.Setup(x => x.List()).Returns(UserTaskStub.AsQueryable());
 
