@@ -16,6 +16,11 @@ namespace TODOList.Service
             _userTaskRepository = userTaskRepository;
         }
 
+        public Task<int> Create(string description)
+        {
+            return Task.FromResult(1);
+        }
+
         public Task<IEnumerable<UserTask>> GetUserTasks(User user)
         {
             return Task.FromResult(_userTaskRepository.List().Where(userTask => userTask.User.Id == user.Id).AsEnumerable());

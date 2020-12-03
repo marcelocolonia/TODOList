@@ -20,7 +20,7 @@ export class UserTaskService {
 
   public addNewTask(description: string): Observable<HttpResponse<any>> {
 
-    return this._httpClient.post<string>(this._baseUrl + this.endpoint + '/create', description,
+    return this._httpClient.post<string>(this._baseUrl + this.endpoint + '/create', { description },
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'

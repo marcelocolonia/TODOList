@@ -7,5 +7,6 @@ namespace TODOList.Service.Interfaces
     public interface IUserTaskService
     {
         Task<IEnumerable<UserTask>> GetUserTasks(User user);
+        Task<int> Create(string description);
     }
 }

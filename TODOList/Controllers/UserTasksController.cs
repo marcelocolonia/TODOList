@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,22 @@ namespace TODOList.Controllers
                 LastUpdate = x.LastUpdate
             });
         }
+
+        [HttpPost]
+        [Route("create")]
+        public async Task<IActionResult> Create(NewUserTaskViewModel newUserTaskViewModel)
+        {
+            try
+            {
+                var response = await _userTaskService.Create(newUserTaskViewModel.Description);
+
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
     }
 }
