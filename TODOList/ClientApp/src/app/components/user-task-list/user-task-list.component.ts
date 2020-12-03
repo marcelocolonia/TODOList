@@ -15,6 +15,11 @@ export class UserTaskListComponent implements OnInit {
 
   ngOnInit() {
 
+    return this.loadUserTasks();
+
+  }
+
+  private loadUserTasks() {
     return this._userTaskService.GetUserTasks()
       .subscribe((userTasks: UserTaskModel[]) => {
 
@@ -26,7 +31,5 @@ export class UserTaskListComponent implements OnInit {
           console.log(' error while fetching user tasks ' + error);
 
         });
-
   }
-
 }
