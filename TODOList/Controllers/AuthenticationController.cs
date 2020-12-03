@@ -32,6 +32,7 @@ namespace TODOList.Controllers
             {
                 var user = await _userTaskService.GetUserByCredentials(loginViewModel.UserName, loginViewModel.Password);
 
+                //  todo: maybe move this lot to a service
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
@@ -46,11 +47,20 @@ namespace TODOList.Controllers
 
                 return Ok();
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 //  todo: return a user-friendly error message
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+
+            return Ok();
         }
 
     }

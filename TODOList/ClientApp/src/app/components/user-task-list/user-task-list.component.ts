@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppRoutes } from '../../app-routes';
 import { UserTaskModel } from '../../models/user-task-model';
 import { UserTaskService } from '../../services/user-task.service';
+import * as HttpStatus from 'http-status-codes';
 
 @Component({
   selector: 'app-user-task-list',
@@ -33,7 +34,12 @@ export class UserTaskListComponent implements OnInit {
       },
         error => {
 
-          console.log(' error while fetching user tasks ' + error);
+          if (error.status == HttpStatus.UNAUTHORIZED) {
+            this._router.navigate([AppRoutes.LOGIN]);
+          }
+          else {
+            console.log(' error while fetching user tasks ' + error);
+          }
 
         });
   }
@@ -54,7 +60,12 @@ export class UserTaskListComponent implements OnInit {
       },
         error => {
 
-          console.log(' error while deleting user tasks ' + error);
+          if (error.status == HttpStatus.UNAUTHORIZED) {
+            this._router.navigate([AppRoutes.LOGIN]);
+          }
+          else {
+            console.log(' error while deleting user tasks ' + error);
+          }          
 
         });
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppRoutes } from '../../app-routes';
 import { UserTaskService } from '../../services/user-task.service';
+import * as HttpStatus from 'http-status-codes';
 
 @Component({
   selector: 'app-new-user-task-form',
@@ -52,7 +53,12 @@ export class NewUserTaskFormComponent implements OnInit {
       },
         error => {
 
-          console.log('could not add new task ' + error);
+          if (error.status == HttpStatus.UNAUTHORIZED) {
+            this._router.navigate([AppRoutes.LOGIN]);
+          }
+          else {
+            console.log('could not add new task ' + error);
+          }          
 
         });
 

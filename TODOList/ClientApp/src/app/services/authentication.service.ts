@@ -24,4 +24,17 @@ export class AuthenticationService {
 
   }
 
+  public logout(): Observable<HttpResponse<any>> {
+
+    return this._httpClient.post(this._baseUrl + this.endpoint + '/logout', { },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        observe: 'response'
+      }
+    );
+
+  }
+
 }
