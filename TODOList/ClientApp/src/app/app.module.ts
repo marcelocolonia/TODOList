@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserTaskListComponent } from './components/user-task-list/user-task-list.component';
 import { NewUserTaskFormComponent } from './components/new-user-task-form/new-user-task-form.component';
 import { AppRoutes } from './app-routes';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutes } from './app-routes';
     CounterComponent,
     FetchDataComponent,
     UserTaskListComponent,
-    NewUserTaskFormComponent
+    NewUserTaskFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,7 +35,8 @@ import { AppRoutes } from './app-routes';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: AppRoutes.USER_TASK_LIST, component: UserTaskListComponent },
-      { path: AppRoutes.NEW_USER_TASK, component: NewUserTaskFormComponent }
+      { path: AppRoutes.NEW_USER_TASK, component: NewUserTaskFormComponent },
+      { path: AppRoutes.LOGIN, component: LoginComponent }
     ])
   ],
   providers: [],

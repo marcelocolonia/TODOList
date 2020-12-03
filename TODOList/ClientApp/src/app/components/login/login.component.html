@@ -1,0 +1,22 @@
+
+<div class="form-signin text-center">
+
+  <form [formGroup]="loginForm">
+
+    <div>
+      <input id="userName" type="text" required formControlName="userName" class="form-control" placeholder="Username">
+    </div>
+
+    <div>
+      <input id="password" type="password" required formControlName="password" class="form-control" placeholder="Password">
+    </div>
+
+  </form>
+
+  <div class="button-row">
+
+    <button class="btn btn-primary" (click)="login()" [disabled]="!isFormValid">Login</button>
+
+  </div>
+
+</div>
