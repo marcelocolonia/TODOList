@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TODOList.Core
+namespace TODOList.Repository.Entities
 {
     public class UserTask
     {

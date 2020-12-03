@@ -1,52 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TODOList.Core;
+﻿using System.Linq;
+using TODOList.Repository.Entities;
 using TODOList.Repository.Interfaces;
 
 namespace TODOList.Repository
 {
     public class UserTaskRepository : IUserTaskRepository
     {
+        private readonly IDbContext _dbContext;
+
+        public UserTaskRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public int Create(UserTask userTask)
+        {
+            var maxUserTaskId = _dbContext.UserTasks.Select(x => x.Id).DefaultIfEmpty(0).Max();
+
+            userTask.Id = maxUserTaskId  + 1;
+
+            _dbContext.UserTasks.Add(userTask);
+
+            return userTask.Id;
+        }
+
+        public UserTask Get(int id)
+        {
+            return _dbContext.UserTasks.FirstOrDefault(x => x.Id == id);
+        }
+
         public IQueryable<UserTask> List()
         {
-            var userOne = new User()
-            {
-                Id = 100,
-                FirstName = "Peter",
-                LastName = "Parker",
-            };
-
-            var userTwo = new User()
-            {
-                Id = 200,
-                FirstName = "Steve",
-                LastName = "Rogers"
-            };
-
-            var userTasksStub = new List<UserTask>()
-            {
-                new UserTask()
-                {
-                    User = userOne,
-                    Description = "Clean up the house",
-                    LastUpdate = DateTime.UtcNow
-                },
-                new UserTask()
-                {
-                    User = userOne,
-                    Description = "Buy groceries",
-                    LastUpdate = DateTime.UtcNow
-                },
-                new UserTask()
-                {
-                    User = userTwo,
-                    Description = "Walk the dog",
-                    LastUpdate = DateTime.UtcNow
-                }
-            };
-
-            return userTasksStub.AsQueryable();
+            return _dbContext.UserTasks.AsQueryable();
         }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TODOList.Repository.Entities;
 using TODOList.Service.Interfaces;
 using TODOList.ViewModels;
 
@@ -28,7 +29,7 @@ namespace TODOList.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserTaskViewModel>> Get()
         {
-            var tasks = await _userTaskService.GetUserTasks(new Core.User() { Id = 100 });
+            var tasks = await _userTaskService.GetUserTasks(new User() { Id = 100 });
 
             return tasks.Select(x => new UserTaskViewModel()
             {
@@ -43,13 +44,16 @@ namespace TODOList.Controllers
         {
             try
             {
-                var response = await _userTaskService.Create(newUserTaskViewModel.Description);
+                var user = await _userTaskService.GetUserById(100); // todo: fetch user from http context
+
+                var response = await _userTaskService.CreateUserTask(user, newUserTaskViewModel.Description);
 
                 return Ok(response);
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                //  todo: return a user-friendly error message
+                return BadRequest();
             }
         }
 

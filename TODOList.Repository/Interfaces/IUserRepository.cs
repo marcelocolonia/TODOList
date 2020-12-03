@@ -2,7 +2,7 @@
 
 namespace TODOList.Repository.Interfaces
 {
-    public interface IUserTaskRepository : IGenericRepository<UserTask>
+    public interface IUserRepository : IGenericRepository<User>
     {
     }
 }

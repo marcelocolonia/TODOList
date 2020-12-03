@@ -25,7 +25,10 @@ namespace TODOList
         {
             services.AddControllersWithViews();
 
+            services.AddSingleton<IDbContext, DbContext>();
+
             services.AddTransient<IUserTaskRepository, UserTaskRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserTaskService, UserTaskService>();
 
             // In production, the Angular files will be served from this directory

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TODOList.Core;
+using TODOList.Repository.Entities;
 using TODOList.Repository.Interfaces;
 
 namespace TODOList.Service.Tests
@@ -52,7 +52,7 @@ namespace TODOList.Service.Tests
 
             mockRepository.Setup(x => x.List()).Returns(UserTaskStub.AsQueryable());
 
-            var service = new UserTaskService(mockRepository.Object);
+            var service = new UserTaskService(mockRepository.Object, null);
 
             var userOne = UserListStub.First(x => x.UserName == "ONE");
 

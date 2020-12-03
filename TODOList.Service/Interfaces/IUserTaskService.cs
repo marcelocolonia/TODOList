@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TODOList.Core;
+using TODOList.Repository.Entities;
 
 namespace TODOList.Service.Interfaces
 {
     public interface IUserTaskService
     {
         Task<IEnumerable<UserTask>> GetUserTasks(User user);
-        Task<int> Create(string description);
+        Task<int> CreateUserTask(User user, string description);
+        Task<User> GetUserById(int id);
     }
 }
