@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRoutes } from '../../app-routes';
@@ -44,6 +45,18 @@ export class UserTaskListComponent implements OnInit {
   }
 
   public deleteSelectedTasks(): void {
+
+    this._userTaskService.deleteUserTasks(this.userTasks.filter(x => x.selected).map(x => x.id))
+      .subscribe((userTasks: HttpResponse<any>) => {
+
+        this.loadUserTasks();
+
+      },
+        error => {
+
+          console.log(' error while deleting user tasks ' + error);
+
+        });
 
   }
 

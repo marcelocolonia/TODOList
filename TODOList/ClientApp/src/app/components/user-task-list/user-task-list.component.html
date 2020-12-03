@@ -8,11 +8,15 @@
 <table class='table table-striped' aria-labelledby="tableLabel">
   <thead>
     <tr>
+      <th></th>
+    </tr>
+    <tr>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let userTask of userTasks">
+      <td><input type="checkbox" (change)="userTask.selected = !userTask.selected" /></td>
       <td>{{ userTask.description }}</td>
     </tr>
   </tbody>

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -29,10 +28,12 @@ namespace TODOList.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserTaskViewModel>> Get()
         {
+            //  todo: get task from context user
             var tasks = await _userTaskService.GetUserTasks(new User() { Id = 100 });
 
             return tasks.Select(x => new UserTaskViewModel()
             {
+                Id = x.Id,
                 Description = x.Description,
                 LastUpdate = x.LastUpdate
             });
@@ -53,6 +54,20 @@ namespace TODOList.Controllers
             catch (Exception)
             {
                 //  todo: return a user-friendly error message
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<IActionResult> Delete([FromBody] UserTaskDeleteViewModel model)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception)
+            {
                 return BadRequest();
             }
         }

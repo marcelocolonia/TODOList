@@ -31,4 +31,17 @@ export class UserTaskService {
 
   }
 
+  public deleteUserTasks(ids: number[]): Observable<HttpResponse<any>> {
+
+    return this._httpClient.post<any>(this._baseUrl + this.endpoint + '/delete', { ids },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        observe: 'response'
+      }
+    );
+
+  }
+
 }
