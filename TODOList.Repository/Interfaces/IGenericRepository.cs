@@ -7,11 +7,6 @@ namespace TODOList.Repository.Interfaces
         public IQueryable<T> List();
         int Create(T item);
         T Get(int id);
-
-        //IQueryable<T> List();
-
-        //bool Delete(int id);
-
-        //bool SaveChanges();
+        bool Delete(int id);
     }
 }

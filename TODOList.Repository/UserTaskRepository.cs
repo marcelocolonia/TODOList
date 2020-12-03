@@ -24,6 +24,18 @@ namespace TODOList.Repository
             return userTask.Id;
         }
 
+        public bool Delete(int id)
+        {
+            var userTask = Get(id);
+
+            if (userTask == null)
+            {
+                return false;
+            }
+
+            return _dbContext.UserTasks.Remove(userTask);
+        }
+
         public UserTask Get(int id)
         {
             return _dbContext.UserTasks.FirstOrDefault(x => x.Id == id);

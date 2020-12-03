@@ -18,6 +18,11 @@ namespace TODOList.Repository
             throw new System.NotImplementedException();
         }
 
+        public bool Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public User Get(int id)
         {
             return _dbContext.Users.FirstOrDefault(x => x.Id == id);

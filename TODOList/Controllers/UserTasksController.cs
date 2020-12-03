@@ -64,6 +64,10 @@ namespace TODOList.Controllers
         {
             try
             {
+                var user = await _userTaskService.GetUserById(100); // todo: fetch user from http context
+
+                await _userTaskService.DeleteUserTask(user.Id, model.Ids);
+
                 return Ok();
             }
             catch (Exception)

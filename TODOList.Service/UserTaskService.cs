@@ -10,8 +10,12 @@ namespace TODOList.Service
 {
     public class UserTaskService : IUserTaskService
     {
-        private IUserTaskRepository _userTaskRepository;
-        private IUserRepository _userRepository;
+        //  NOTE: our methods are async. 
+        //  In a real world app we would have to deal with async stuff (EF ListAsync for instance)
+        //  but for test purposes our methods simply return Task.FromResult
+
+        private readonly IUserTaskRepository _userTaskRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserTaskService(
             IUserTaskRepository userTaskRepository,
@@ -42,6 +46,20 @@ namespace TODOList.Service
         public Task<User> GetUserById(int id)
         {
             return Task.FromResult(_userRepository.Get(id));
+        }
+
+        public Task DeleteUserTask(int userId, int[] userTaskIds)
+        {
+            var userTasksQuery = _userTaskRepository.List()
+                //  Filtering our query by user id to make sure those tasks really belong to them
+                .Where(x => x.User.Id == userId && userTaskIds.Contains(x.Id));
+
+            foreach (var userTask in userTasksQuery.ToList())
+            {
+                _userTaskRepository.Delete(userTask.Id);
+            }
+
+            return Task.FromResult(true);
         }
     }
 }

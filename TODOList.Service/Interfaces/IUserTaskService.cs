@@ -9,5 +9,6 @@ namespace TODOList.Service.Interfaces
         Task<IEnumerable<UserTask>> GetUserTasks(User user);
         Task<int> CreateUserTask(User user, string description);
         Task<User> GetUserById(int id);
+        Task DeleteUserTask(int userId, int[] userTaskIds);
     }
 }
