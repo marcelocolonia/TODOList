@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityServer3" Version="2.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TODOList.Repository\TODOList.Repository.csproj" />
   </ItemGroup>
 

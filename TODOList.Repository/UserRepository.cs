@@ -30,7 +30,7 @@ namespace TODOList.Repository
 
         public IQueryable<User> List()
         {
-            throw new System.NotImplementedException();
+            return _dbContext.Users.AsQueryable();
         }
     }
 }

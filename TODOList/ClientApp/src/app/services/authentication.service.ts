@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthenticationService {
 
-  private readonly endpoint: string = 'user';
+  private readonly endpoint: string = 'authentication';
 
   constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl: string) { }
 

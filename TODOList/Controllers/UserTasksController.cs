@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TODOList.Repository.Entities;
+using TODOList.Helpers;
 using TODOList.Service.Interfaces;
 using TODOList.ViewModels;
 
 namespace TODOList.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserTasksController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<UserTasksController> _logger;
         private readonly IUserTaskService _userTaskService;
 
-        public UserTasksController(ILogger<WeatherForecastController> logger,
+        public UserTasksController(ILogger<UserTasksController> logger,
             IUserTaskService userTaskService
             )
         {
@@ -28,15 +30,23 @@ namespace TODOList.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserTaskViewModel>> Get()
         {
-            //  todo: get task from context user
-            var tasks = await _userTaskService.GetUserTasks(new User() { Id = 100 });
-
-            return tasks.Select(x => new UserTaskViewModel()
+            try
             {
-                Id = x.Id,
-                Description = x.Description,
-                LastUpdate = x.LastUpdate
-            });
+                var userId = HttpContext.User.GetUserId();
+
+                var tasks = await _userTaskService.GetUserTasks(userId);
+
+                return tasks.Select(x => new UserTaskViewModel()
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    LastUpdate = x.LastUpdate
+                });
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
 
         [HttpPost]
@@ -45,7 +55,9 @@ namespace TODOList.Controllers
         {
             try
             {
-                var user = await _userTaskService.GetUserById(100); // todo: fetch user from http context
+                var userId = HttpContext.User.GetUserId();
+
+                var user = await _userTaskService.GetUserById(userId);
 
                 var response = await _userTaskService.CreateUserTask(user, newUserTaskViewModel.Description);
 
@@ -64,9 +76,9 @@ namespace TODOList.Controllers
         {
             try
             {
-                var user = await _userTaskService.GetUserById(100); // todo: fetch user from http context
+                var userId = HttpContext.User.GetUserId();
 
-                await _userTaskService.DeleteUserTask(user.Id, model.Ids);
+                await _userTaskService.DeleteUserTask(userId, model.Ids);
 
                 return Ok();
             }

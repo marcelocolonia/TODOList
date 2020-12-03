@@ -18,7 +18,8 @@ namespace TODOList.Repository
                     Id = 100,
                     FirstName = "User",
                     LastName = "Test",
-                    UserName = "usertest@gmail.com",
+                    UserName = "test",
+                    Password = "pwd123",
                     Tasks = new List<UserTask>()
                 }
             };

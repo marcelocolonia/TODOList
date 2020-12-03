@@ -54,9 +54,9 @@ namespace TODOList.Service.Tests
 
             var service = new UserTaskService(mockRepository.Object, null);
 
-            var userOne = UserListStub.First(x => x.UserName == "ONE");
+            var userOne = UserListStub.First(x => x.Id == 100);
 
-            var userTasks = await service.GetUserTasks(userOne);
+            var userTasks = await service.GetUserTasks(100);
 
             //  Shouldn't contain tasks from other users
             CollectionAssert.IsEmpty(userTasks.Where(x => x.User.Id != userOne.Id));

@@ -38,9 +38,9 @@ namespace TODOList.Service
             return Task.FromResult(newTaskId);
         }
 
-        public Task<IEnumerable<UserTask>> GetUserTasks(User user)
+        public Task<IEnumerable<UserTask>> GetUserTasks(int userId)
         {
-            return Task.FromResult(_userTaskRepository.List().Where(userTask => userTask.User.Id == user.Id).AsEnumerable());
+            return Task.FromResult(_userTaskRepository.List().Where(userTask => userTask.User.Id == userId).AsEnumerable());
         }
 
         public Task<User> GetUserById(int id)
@@ -60,6 +60,13 @@ namespace TODOList.Service
             }
 
             return Task.FromResult(true);
+        }
+
+        public Task<User> GetUserByCredentials(string userName, string password)
+        {
+            var user = _userRepository.List().SingleOrDefault(x => x.UserName == userName && x.Password == password);
+
+            return Task.FromResult(user);
         }
     }
 }
