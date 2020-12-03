@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppRoutes } from '../../app-routes';
 import { UserTaskModel } from '../../models/user-task-model';
 import { UserTaskService } from '../../services/user-task.service';
 
@@ -11,7 +13,9 @@ export class UserTaskListComponent implements OnInit {
 
   public userTasks: UserTaskModel[] = [];
 
-  constructor(private _userTaskService: UserTaskService) { }
+  constructor(private _userTaskService: UserTaskService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -20,7 +24,7 @@ export class UserTaskListComponent implements OnInit {
   }
 
   private loadUserTasks() {
-    return this._userTaskService.GetUserTasks()
+    return this._userTaskService.getUserTasks()
       .subscribe((userTasks: UserTaskModel[]) => {
 
         this.userTasks = userTasks;
@@ -32,4 +36,15 @@ export class UserTaskListComponent implements OnInit {
 
         });
   }
+
+  public showNewTaskForm(): void {
+
+    this._router.navigate([AppRoutes.NEW_USER_TASK]);
+
+  }
+
+  public deleteSelectedTasks(): void {
+
+  }
+
 }

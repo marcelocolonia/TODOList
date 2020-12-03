@@ -1,5 +1,10 @@
 <h1 id="tableLabel">My Tasks</h1>
 
+<div class="button-row">
+  <button class="btn btn-secondary" (click)="deleteSelectedTasks()">Delete</button>
+  <button class="btn btn-primary" (click)="showNewTaskForm()">Add</button>
+</div>
+
 <table class='table table-striped' aria-labelledby="tableLabel">
   <thead>
     <tr>

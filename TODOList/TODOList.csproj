@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\app-routes.ts" />
     <None Remove="ClientApp\src\app\models\user-task-model.ts" />
   </ItemGroup>
 

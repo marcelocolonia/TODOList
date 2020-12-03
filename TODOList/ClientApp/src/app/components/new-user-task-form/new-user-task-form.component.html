@@ -1,0 +1,19 @@
+<h1>New Task</h1>
+
+<form [formGroup]="newTaskForm">
+
+  <div>
+    <label for="description">Description</label>
+  </div>
+  <div>
+    <input id="description" type="text" required formControlName="description">
+  </div>
+
+</form>
+
+<div class="button-row">
+
+  <button class="btn btn-secondary" (click)="showTaskList()">Cancel</button>
+  <button class="btn btn-primary" (click)="saveTask()" [disabled]="!isFormValid" >Save</button>
+
+</div>

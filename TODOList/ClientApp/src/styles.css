@@ -14,3 +14,13 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.button-row {
+  justify-content: end;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+  .button-row button {
+    margin-left: 10px;
+  }
