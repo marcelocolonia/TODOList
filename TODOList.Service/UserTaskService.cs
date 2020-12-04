@@ -26,8 +26,15 @@ namespace TODOList.Service
             _userRepository = userRepository;
         }
 
-        public Task<int> CreateUserTask(User user, string description)
+        public async Task<int> CreateUserTask(int userId, string description)
         {
+            var user = await GetUserById(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
             var newTaskId = _userTaskRepository.Create(new UserTask()
             {
                 Description = description,
@@ -35,7 +42,7 @@ namespace TODOList.Service
                 User = user
             });
 
-            return Task.FromResult(newTaskId);
+            return newTaskId;
         }
 
         public Task<IEnumerable<UserTask>> GetUserTasks(int userId)

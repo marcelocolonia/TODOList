@@ -57,9 +57,7 @@ namespace TODOList.Controllers
             {
                 var userId = HttpContext.User.GetUserId();
 
-                var user = await _userTaskService.GetUserById(userId);
-
-                var response = await _userTaskService.CreateUserTask(user, newUserTaskViewModel.Description);
+                var response = await _userTaskService.CreateUserTask(userId, newUserTaskViewModel.Description);
 
                 return Ok(response);
             }

@@ -63,5 +63,58 @@ namespace TODOList.Service.Tests
 
             Assert.AreEqual(userTasks.Count(), 2);
         }
+
+        [Test]
+        public void Should_throw_exception_when_creating_a_task_for_invalid_user()
+        {
+            var userRepositoryMock = new Mock<IUserRepository>();
+
+            userRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns<User>(null);
+
+            var userTaskService = new UserTaskService(null, userRepositoryMock.Object);
+
+            Assert.ThrowsAsync<Exception>(() => userTaskService.CreateUserTask(100, "this user doesnt exist"));
+        }
+
+        [Test]
+        public async Task Should_correctly_create_task_for_user()
+        {
+            var userTaskRepositoryMock = new Mock<IUserTaskRepository>();
+            userTaskRepositoryMock.Setup(x => x.Create(It.IsAny<UserTask>())).Returns(200);
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.Get(100)).Returns(new User() { Id = 100 });
+
+            var service = new UserTaskService(userTaskRepositoryMock.Object, userRepositoryMock.Object);
+
+            var newTaskId = await service.CreateUserTask(100, "my new task");
+
+            userTaskRepositoryMock.Verify(x => x.Create(It.Is<UserTask>(u => u.User.Id == 100 && u.Description == "my new task")), Times.Once);
+
+            Assert.AreEqual(newTaskId, 200);
+        }
+
+        [Test]
+        public async Task Should_never_delete_tasks_from_other_users()
+        {
+            var userTaskRepositoryMock = new Mock<IUserTaskRepository>();
+
+            var taskList = new List<UserTask>()
+            {
+                new UserTask() { User = new User() { Id = 100 }, Id = 110, Description = "user 100, task 110" },
+                new UserTask() { User = new User() { Id = 100 }, Id = 120, Description = "user 100, task 120" },
+                new UserTask() { User = new User() { Id = 200 }, Id = 210, Description = "user 200, task 210" },
+            };
+
+            userTaskRepositoryMock.Setup(x => x.List()).Returns(taskList.AsQueryable());
+
+            var service = new UserTaskService(userTaskRepositoryMock.Object, null);
+
+            await service.DeleteUserTask(100, new int[] { 110, 120, 210 });
+
+            userTaskRepositoryMock.Verify(x => x.Delete(110), Times.Once);
+            userTaskRepositoryMock.Verify(x => x.Delete(120), Times.Once);
+            userTaskRepositoryMock.Verify(x => x.Delete(200), Times.Never);
+        }
     }
 }
