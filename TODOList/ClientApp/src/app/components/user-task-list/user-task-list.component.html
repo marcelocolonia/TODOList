@@ -5,19 +5,28 @@
   <button class="btn btn-primary" (click)="showNewTaskForm()">Add</button>
 </div>
 
-<table class='table table-striped' aria-labelledby="tableLabel">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Description</th>
-      <th>Last Update</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let userTask of userTasks">
-      <td><input type="checkbox" (change)="userTask.selected = !userTask.selected" /></td>
-      <td>{{ userTask.description }}</td>
-      <td>{{ userTask.lastUpdate | date: 'mediumDate' }} {{ userTask.lastUpdate | date: 'mediumTime' }}</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="isListEmpty else datatable">
+  You have no tasks
+</div>
+
+<ng-template #datatable>
+
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Description</th>
+        <th>Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let userTask of userTasks">
+        <td><input type="checkbox" (change)="userTask.selected = !userTask.selected" /></td>
+        <td>{{ userTask.description }}</td>
+        <td>{{ userTask.lastUpdate | date: 'mediumDate' }} {{ userTask.lastUpdate | date: 'mediumTime' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</ng-template>
+

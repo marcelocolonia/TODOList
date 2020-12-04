@@ -19,6 +19,10 @@ export class UserTaskListComponent implements OnInit {
     private _router: Router
   ) { }
 
+  public get isListEmpty(): boolean {
+    return this.userTasks.length == 0;
+  }
+
   ngOnInit() {
 
     return this.loadUserTasks();
