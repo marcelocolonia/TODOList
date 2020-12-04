@@ -13,6 +13,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public errorMessage: string;
 
   public get isFormValid(): boolean {
     return this.loginForm.valid;
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
       },
         error => {
 
-          console.log('could not authenticate user ' + error);
+          this.errorMessage = 'User name and/or password invalid';
 
         });
 

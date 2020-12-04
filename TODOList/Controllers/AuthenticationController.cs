@@ -32,6 +32,11 @@ namespace TODOList.Controllers
             {
                 var user = await _userTaskService.GetUserByCredentials(loginViewModel.UserName, loginViewModel.Password);
 
+                if (user == null)
+                {
+                    return BadRequest();
+                }
+
                 //  todo: maybe move this lot to a service
                 var claims = new List<Claim>
                 {
