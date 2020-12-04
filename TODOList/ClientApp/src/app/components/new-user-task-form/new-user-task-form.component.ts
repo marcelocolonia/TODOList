@@ -14,6 +14,7 @@ import * as HttpStatus from 'http-status-codes';
 export class NewUserTaskFormComponent implements OnInit {
 
   public newTaskForm: FormGroup;
+  public errorMessage: string;
 
   public get isFormValid(): boolean {
     return this.newTaskForm.valid;
@@ -57,7 +58,7 @@ export class NewUserTaskFormComponent implements OnInit {
             this._router.navigate([AppRoutes.LOGIN]);
           }
           else {
-            console.log('could not add new task ' + error);
+            this.errorMessage = 'A wild error appears';
           }          
 
         });
