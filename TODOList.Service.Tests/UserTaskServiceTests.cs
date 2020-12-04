@@ -9,7 +9,7 @@ using TODOList.Repository.Interfaces;
 
 namespace TODOList.Service.Tests
 {
-    public class TodoListServiceTests
+    public class UserTaskServiceTests
     {
         private IList<UserTask> UserTaskStub;
         private IList<User> UserListStub;

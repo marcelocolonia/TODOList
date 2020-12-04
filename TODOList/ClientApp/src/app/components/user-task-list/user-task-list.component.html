@@ -10,12 +10,14 @@
     <tr>
       <th></th>
       <th>Description</th>
+      <th>Last Update</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let userTask of userTasks">
       <td><input type="checkbox" (change)="userTask.selected = !userTask.selected" /></td>
       <td>{{ userTask.description }}</td>
+      <td>{{ userTask.lastUpdate | date: 'mediumDate' }} {{ userTask.lastUpdate | date: 'mediumTime' }}</td>
     </tr>
   </tbody>
 </table>
